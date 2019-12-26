@@ -1,0 +1,210 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "autonomous color tower finder",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ExploreIntent",
+                    "slots": [
+                        {
+                            "name": "TowerColorA",
+                            "type": "AMAZON.Color"
+                        },
+                        {
+                            "name": "TowerColorB",
+                            "type": "AMAZON.Color"
+                        }
+                    ],
+                    "samples": [
+                        "Go tower color {TowerColorA} and {TowerColorB}",
+                        "Explore tower {TowerColorA} and {TowerColorB}",
+                        "Go and explore tower color {TowerColorA} and {TowerColorB}",
+                        "Explore tower color {TowerColorA}",
+                        "Go tower color {TowerColorA}",
+                        "Go and explore station color {TowerColorA}"
+                    ]
+                },
+                {
+                    "name": "ConditionsIntent",
+                    "slots": [
+                        {
+                            "name": "ReadConditions",
+                            "type": "ReadType"
+                        }
+                    ],
+                    "samples": [
+                        "How is {ReadConditions}",
+                        "Read {ReadConditions}"
+                    ]
+                },
+                {
+                    "name": "ReturnBaseIntent",
+                    "slots": [],
+                    "samples": [
+                        "Return base and go to next tower",
+                        "Return base"
+                    ]
+                },
+                {
+                    "name": "VerifyColorIntent",
+                    "slots": [],
+                    "samples": [
+                        "Check is correct color",
+                        "Verify color"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "AMAZON.Color",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "Blue"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Red"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ReadType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "all conditions"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ambient temperature"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "relative humidity"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "GPS position"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "ExploreIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "TowerColorA",
+                            "type": "AMAZON.Color",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1198327695228.812045879733"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.353440037283.1392285704511.878019178450",
+                                    "values": [
+                                        "Red",
+                                        "Blue"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "TowerColorB",
+                            "type": "AMAZON.Color",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {},
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1198327695228.1058437917242.366259422034",
+                                    "values": [
+                                        "Red",
+                                        "Blue"
+                                    ]
+                                },
+                                {
+                                    "type": "isNotInSet",
+                                    "prompt": "Slot.Validation.1198327695228.1058437917242.1026526015093",
+                                    "values": [
+                                        "TowerColorA"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Slot.Validation.353440037283.1392285704511.878019178450",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Invalid Color Tower"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1198327695228.1058437917242.366259422034",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Invalid Color Tower"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1198327695228.1058437917242.1026526015093",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Second tower must be different color that first tower"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1198327695228.812045879733",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "You must say one color red or blue"
+                    }
+                ]
+            }
+        ]
+    }
+}
